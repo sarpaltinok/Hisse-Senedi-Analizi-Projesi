@@ -39,12 +39,12 @@ Tüm şirketlerin günlük kapanış fiyatları kullanılarak korelasyon matrisi
 
 ## Nasıl Çalıştırılır?
 
-1. Gerekli kütüphaneleri yükleyin:
+ Gerekli kütüphaneleri yükleyin:
 
 ```bash
 pip install yfinance pandas numpy matplotlib
 ```
-2. Jupyter Notebook veya Python IDE'nizde proje dosyasını açın ve tüm hücreleri çalıştırın.
+
 
 
 ## Katkıda Bulunma
