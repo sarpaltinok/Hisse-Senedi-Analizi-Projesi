@@ -49,6 +49,13 @@ Install the necessary libraries:
 ```bash
 pip install yfinance pandas numpy matplotlib
 ```
+
+Run:
+
+```bash
+python analysis.py
+```
+
 ## Contributing
 This project is open source. You can fork it and send a pull request to contribute.
 

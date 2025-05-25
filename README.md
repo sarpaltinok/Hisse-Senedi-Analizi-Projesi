@@ -47,6 +47,12 @@ Tüm şirketlerin günlük kapanış fiyatları kullanılarak korelasyon matrisi
 pip install yfinance pandas numpy matplotlib
 ```
 
+Çalıştır:
+
+```bash
+python analiz.py
+```
+
 ## Türkçe Karakter Sorunu;
 
 - Python projelerinde, özellikle Windows ortamında veya farklı kodlama ayarlarıyla çalışırken, Türkçe karakterler (ç, ğ, ş, ü, ö, İ, ı) konsolda, dosya isimlerinde veya çıktı dosyalarında bozuk veya garip karakterler olarak görünebilir.
