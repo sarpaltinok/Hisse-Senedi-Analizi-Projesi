@@ -2,6 +2,8 @@ import yfinance as yf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+os.chdir(os.path.dirname(__file__))
 
 # Hisse kodları
 tickers = ["GOOGL", "MSFT", "META", "AAPL", "AMZN"]
@@ -137,3 +139,5 @@ def degerlendirme(corr_matrix):
     print("Bu ilişkiler, sektör içi etkileşimler, ortak piyasa koşulları ve yatırımcı davranışları gibi faktörlerden etkilenmektedir.\n")
 
 degerlendirme(corr_matrix)
+
+input("Çıkmak için Enter'a basınız...")

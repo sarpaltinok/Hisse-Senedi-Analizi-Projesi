@@ -2,6 +2,8 @@ import yfinance as yf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+os.chdir(os.path.dirname(__file__))
 
 # Stock tickers
 tickers = ["GOOGL", "MSFT", "META", "AAPL", "AMZN"]
@@ -137,3 +139,5 @@ def evaluate(corr_matrix):
     print("These relationships are influenced by sector dynamics, common market conditions, and investor behavior.\n")
 
 evaluate(corr_matrix)
+
+input("Press Enter to exit...")
