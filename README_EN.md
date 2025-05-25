@@ -56,6 +56,10 @@ Run:
 python analysis.py
 ```
 
+or
+
+You can double click on the "analysis.py" file and run it.
+
 ## Contributing
 This project is open source. You can fork it and send a pull request to contribute.
 
