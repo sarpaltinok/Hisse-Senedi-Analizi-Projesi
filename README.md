@@ -1,4 +1,4 @@
-[English](https://github.com/brgkdm/Hisse-Senedi-Analizi-Projesi/blob/main/README_EN.md)
+[English Readme.md](https://github.com/brgkdm/Hisse-Senedi-Analizi-Projesi/blob/main/README_EN.md)
 
 # Hisse Senedi Analizi Projesi
 
