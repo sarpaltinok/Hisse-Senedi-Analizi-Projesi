@@ -3,7 +3,9 @@
 ### Eklendi
 - İngilizce dil desteği eklendi:
 - Kodun İngilizce sürümü ayrı bir `.py` dosyası olarak hazırlandı.
-- Belgeleme amaçları için İngilizce bir `README_EN.md` dosyası oluşturuldu.
+- İngilizce bilgilendirme amaçlı `README_EN.md` dosyası oluşturuldu.
+- Türkçe ve İngilizce içeriğe sahip bir değişiklik günlüğü eklendi.
+- Terminal yazılarını incelemek için "Çıkmak için Enter'a basınız..." eklendi.
 
 ### Değiştirildi
 - Grafikler en son alınan verilere göre oluşturuldu.
@@ -21,8 +23,9 @@
 ### Added
 - Added English language support:
 - The English version of the code was prepared as a separate `.py` file.
-
-- An English `README_EN.md` file was created for documentation purposes.
+- A `README_EN.md` file has been created for English information purposes.
+- A changelog with Turkish and English content has been added.
+- "Press Enter to Exit..." has been added to examine terminal texts.
 
 ### Changed
 - The graphs were generated based on the latest data received.
