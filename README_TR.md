@@ -45,10 +45,31 @@ Tüm şirketlerin günlük kapanış fiyatları kullanılarak korelasyon matrisi
 pip install yfinance pandas numpy matplotlib
 ```
 
+## Türkçe Karakter Sorunu;
 
+- Python projelerinde, özellikle Windows ortamında veya farklı kodlama ayarlarıyla çalışırken, Türkçe karakterler (ç, ğ, ş, ü, ö, İ, ı) konsolda, dosya isimlerinde veya çıktı dosyalarında bozuk veya garip karakterler olarak görünebilir.
+
+- Bu analiz projesinde, eğer "Python Sertifika" dosyası Türkçe karakter içeren bir dosya yolunda bulunuyorsa hata alınması doğaldır.
+
+### Çözüm için şu adımları uygulayabilirsiniz:
+
+1. Python klasörünü bulun:
+- Genellikle şu yoldadır:
+
+- "C:\Users\kullanıcı_adınız\AppData\Local\Programs\Python"
+
+2. Python klasörünü Türkçe karakter içermeyen bir konuma taşıyın:
+- Örneğin, C:\Python gibi bir klasöre taşıyabilirsiniz.
+- (Taşıma işlemi için CTRL+X ve CTRL+V kullanabilirsiniz.)
+
+3. Analiz scriptinizi tekrar çalıştırın:
+- Bu işlem sonrası sorun büyük ihtimalle çözülecektir.
 
 ## Katkıda Bulunma
 Bu proje açık kaynaklıdır. Katkıda bulunmak için fork edip pull request gönderebilirsiniz.
 
-## LisansLisans
+## Proje Ortakları
+- [Sarp Altınok](https://github.com/sarpaltinok)
+- [Berat](https://github.com/brgkdm)
+## Lisans
 Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için LICENSE dosyasını inceleyin.

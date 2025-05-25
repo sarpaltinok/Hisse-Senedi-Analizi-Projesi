@@ -47,39 +47,93 @@ for ticker in tickers:
 returns_df = pd.DataFrame(returns).T
 print(returns_df)  
 
-# En fazla kazanç sağlayan şirket
-best_investment = returns_df['Percent Change'].idxmax()
-print(f"En fazla kazanç sağlayan şirket: {best_investment}")
+# En fazla kazanç sağlayan şirketi bul
+if not returns_df.empty:
+    returns_df['Percent Change'] = returns_df['Percent Change'].apply(
+    lambda x: float(x.iloc[0]) if isinstance(x, pd.Series) else float(x)
+)
+    best_investment = returns_df['Percent Change'].idxmax()
+    best_return = returns_df.loc[best_investment, 'Percent Change']
+    print(f"En fazla kazanç sağlayan şirket: {best_investment} (%{best_return:.2f})")
+else:
+    print("Hisse verisi bulunamadı veya boş DataFrame.")
 
 # 1 aylık hareketli ortalama grafiği
-plt.figure(figsize=(14, 7))  
+plt.figure(figsize=(18, 10))
 
 for ticker in tickers:
-    # Kapanış fiyatları üzerinden 1 aylık hareketli ortalama hesapla
     moving_avg = data[ticker].rolling(window=21).mean()
-    plt.plot(moving_avg, label=f'{ticker} 1 Aylık MA')  
+    plt.plot(moving_avg, label=f'{ticker} 1 Aylık MA')
 
-# Grafik başlıkları ve etiketler
 plt.title('2024 1 Aylık Hareketli Ortalamalar')
 plt.xlabel('Tarih')
 plt.ylabel('Fiyat ($)')
-plt.legend()  
-plt.grid(True)  
+plt.legend(fontsize=14)
+plt.grid(True)
+
+# Pencereyi tam ekran yap
+manager = plt.get_current_fig_manager()
+try:
+    manager.window.showMaximized()
+except AttributeError:
+    try:
+        manager.full_screen_toggle()
+    except:
+        pass
+
 plt.show()
 
-# Korelasyon matrisi
 # DataFrame'e bütün kapanış fiyatlarını birleştirelim
 combined_data = pd.concat(data, axis=1)
-combined_data.columns = tickers  # Sütun isimlerini hisse kodlarıyla güncelle
+combined_data.columns = tickers
 
 # Korelasyon matrisi
 corr_matrix = combined_data.corr()
 print(corr_matrix)
 
-# YORUM
-print("\nYORUM:")
-print("-Diagonal (köşegen) değerler: Her şirketin kendisiyle olan korelasyonu doğal olarak 1'dir.")
-print("-GOOGL ve MSFT (0.743): Google ve Microsoft'un kapanış fiyatları arasında güçlü bir pozitif ilişki vardır.")
-print("-META ve AMZN (0.825): Meta ve Amazon'un fiyatları arasında oldukça güçlü bir pozitif ilişki gözlemleniyor.")
-print("-AAPL ve MSFT (0.545): Apple ve Microsoft'un fiyatları arasında daha zayıf bir pozitif ilişki var.")
-print("\nGenel olarak, teknoloji şirketlerinin hisse fiyatlarının birbirine oldukça bağlı olduğu söylenebilir.")
+# Değerlendirme fonksiyonu
+def degerlendirme(corr_matrix):
+    print("\nDeğerlendirme Sonuçları:\n")
+    print("Korelasyon matrisindeki köşegen değerler her şirketin kendisiyle olan ilişkisinin 1 olduğunu gösterir.\n")
+    print("Aşağıda, şirketler arasındaki kapanış fiyatları korelasyonları ve bu korelasyonların anlamları detaylı olarak açıklanmıştır:\n")
+    
+    tickers = corr_matrix.columns
+    n = len(tickers)
+    
+    for i in range(n):
+        for j in range(i+1, n):
+            corr_value = corr_matrix.iloc[i, j]
+            company_1 = tickers[i]
+            company_2 = tickers[j]
+            
+            if corr_value >= 0.9:
+                yorum = (f"{company_1} ile {company_2} arasında %{corr_value*100:.1f} seviyesinde çok güçlü ve pozitif bir ilişki "
+                         "bulunmaktadır. Bu, her iki şirketin hisse fiyatlarının genellikle aynı yönde ve benzer oranda hareket ettiğini gösterir.")
+            elif corr_value >= 0.75:
+                yorum = (f"{company_1} ve {company_2} hisse fiyatları arasında yüksek düzeyde pozitif korelasyon (%{corr_value*100:.1f}) "
+                         "vardır, bu da piyasa koşullarına benzer tepki verdiklerini işaret eder.")
+            elif corr_value >= 0.5:
+                yorum = (f"{company_1} ile {company_2} arasında orta seviyede pozitif korelasyon (%{corr_value*100:.1f}) vardır. "
+                         "Fiyat hareketlerinde zaman zaman paralellik gözlemlenmektedir.")
+            elif corr_value >= 0.3:
+                yorum = (f"{company_1} ve {company_2} hisse fiyatları arasında zayıf pozitif korelasyon (%{corr_value*100:.1f}) söz konusudur. "
+                         "Fiyatlar bazen benzer hareketler gösterse de bu ilişki zayıftır.")
+            elif corr_value > -0.3:
+                yorum = (f"{company_1} ile {company_2} arasındaki korelasyon (%{corr_value*100:.1f}) nötr veya çok zayıf seviyededir. "
+                         "Bu şirketlerin fiyat hareketleri büyük ölçüde birbirinden bağımsızdır.")
+            elif corr_value > -0.5:
+                yorum = (f"{company_1} ve {company_2} arasında zayıf negatif korelasyon (%{corr_value*100:.1f}) bulunmaktadır. "
+                         "Birinin fiyatı artarken diğerinin azalması eğilimi hafifçe görülür.")
+            elif corr_value > -0.75:
+                yorum = (f"{company_1} ile {company_2} arasında orta seviyede negatif korelasyon (%{corr_value*100:.1f}) vardır. "
+                         "Fiyat hareketleri genellikle ters yönde ilerlemektedir.")
+            else:
+                yorum = (f"{company_1} ve {company_2} arasında çok güçlü negatif korelasyon (%{corr_value*100:.1f}) mevcuttur. "
+                         "Biri yükselirken diğeri genellikle düşmektedir, piyasa dinamikleri açısından önemli bir zıtlık söz konusudur.")
+            
+            print(f"- {yorum}\n")
+    
+    print("Genel olarak, teknoloji sektöründeki şirketlerin hisse senedi fiyatları arasında çeşitli düzeylerde pozitif ve negatif korelasyonlar gözlemlenmiştir.")
+    print("Bu ilişkiler, sektör içi etkileşimler, ortak piyasa koşulları ve yatırımcı davranışları gibi faktörlerden etkilenmektedir.\n")
+
+degerlendirme(corr_matrix)
